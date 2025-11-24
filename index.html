@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="AION-Search: Semantic searching scientific images with synthetic labels">
+  <meta name="keywords" content="AION-Search, Semantic Search, Vision-Language Models, Astronomy, Galaxy Images, AI">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AION-Search: Semantic Searching Scientific Images with Synthetic Labels</title>
+
+
+  <link rel="icon" href="./static/images/gbenchlogotransparent.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="stylesheet" href="./static/css/leaderboard.css"> --> <!-- Removed as leaderboard is simpler now -->
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <!-- <script src="./static/js/explorer-index.js"></script> --> <!-- Removed -->
+  <!-- <script src="./static/js/question_card.js"></script> --> <!-- Removed -->
+  <!-- <script src="./static/js/gravitybench_scores.js" defer></script> --> <!-- Removed for AION-Search -->
+
+  <!-- MathJax Configuration for LaTeX rendering -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- <script src="./visualizer/data/data_public.js" defer></script> --> <!-- Removed -->
+
+  <style>
+    /* Mobile-friendly table styles */
+    @media screen and (max-width: 768px) {
+      .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .table-container table {
+        font-size: 0.78rem !important;
+        width: auto !important;
+        margin: 0 auto !important;
+      }
+      .table-container th,
+      .table-container td {
+        padding: 0.25rem !important;
+        white-space: nowrap;
+      }
+      .title.is-1 {
+        font-size: 2.2rem !important;
+      }
+    }
+    
+    /* Reduce section spacing after tables */
+    .section:has(.table-container) + .section {
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="#abstract">
+        Introduction
+      </a>
+      <a class="navbar-item" href="#methodology">
+        Methodology
+      </a>
+      <a class="navbar-item" href="#results">
+        Results
+      </a>
+      <a class="navbar-item" href="#BibTeX">
+        BibTeX
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold" style="font-size: 2.7rem;">
+            AION-Search
+          </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            Semantic Searching Scientific Images with Synthetic Labels
+          </h2>
+          <h2 class="subtitle is-3 publication-subtitle">(placeholder website)</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Nolan Koblischke<sup>1,2</sup>,</span>
+            <span class="author-block">
+              Liam Parker<sup>3,5,4,2</sup>,</span>
+            <span class="author-block">
+              Francois Lanusse<sup>6,5</sup>,</span>
+            <span class="author-block">
+              Irina Espejo Morales<sup>2</sup>,</span>
+            <span class="author-block">
+              Jo Bovy<sup>1</sup>,</span>
+            <span class="author-block">
+              Shirley Ho<sup>2,5,7</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Toronto,</span>
+            <span class="author-block"><sup>2</sup>New York University,</span>
+            <span class="author-block"><sup>3</sup>University of California, Berkeley,</span>
+            <span class="author-block"><sup>4</sup>Lawrence Berkeley National Laboratory,</span>
+            <span class="author-block"><sup>5</sup>Flatiron Institute,</span>
+            <span class="author-block"><sup>6</sup>Université Paris-Saclay, Université Paris Cité, CEA, CNRS, AIM,</span>
+            <span class="author-block"><sup>7</sup>Princeton University</span>
+          </div>
+
+          <!-- <div class="has-text-centered" style="margin-top: 0.5em; margin-bottom: 0.5em;">
+            <span class="tag is-success is-large" style="background-color: #4caf50;">Accepted to ICML 2025</span>
+          </div> -->
+        
+          <!-- <section> -->
+            <!-- <div class="section" id="org-banners" style="display:fle">
+              <a href="https://www.ucla.edu/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/ucla.png" style="height:3em">
+              </a>
+              <a href="https://www.washington.edu/" target="blank" class="ext-link">
+                  <img class="center-block org-banner" src="static/images/uw.png" style="height:3em">
+              </a>
+              <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/microsoft.png" style="height:3em">
+              </a>
+            </div> -->
+          <!-- </section> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <span class="link-block">
+                <a href="https://openreview.net/forum?id=j8Qxvb37HQ"
+                   class="external-link button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-alt"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/NolanKoblischke/AION-Search"
+                   class="external-link button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/collections/astronolan/aion-search-6763fb8be7c2c68ceb2e7a5a"
+                   class="external-link button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Model & Data</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/astronolan/AION-Search"
+                   class="external-link button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-search"></i>
+                  </span>
+                  <span>App</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://ai4sciencecommunity.github.io/neurips25.html"
+                   class="external-link button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span>AI4Science Workshop</span>
+                </a>
+              </span>
+              <!-- Twitter Link. -->
+              <!-- <span class="link-block">
+                <a href="https://twitter.com/lupantech/status/1717313355780964608"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="narrow-text-block">
+          <!-- <h2 class="title is-3">Abstract</h2> -->
+          <div class="content has-text-justified">
+            <p>
+              We develop AION-Search, a semantic search engine for astronomical images trained entirely without human annotations. Using VLM-generated captions for ~275k galaxy images, we contrastively align the AION foundation model to enable natural language search across 140 million galaxies. AION-Search outperforms similarity-based methods on finding rare phenomena, with VLM re-ranking nearly doubling recall for gravitational lenses.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="box" style="background-color: #f0f7ff; border: 2px solid #4a90e2; padding: 1.5rem;">
+          <h3 class="title is-4" style="margin-bottom: 0.75rem;">Try AION-Search</h3>
+          <p style="margin-bottom: 1rem;">Search over 19 million galaxies using natural language queries.</p>
+          <a href="https://huggingface.co/spaces/astronolan/AION-Search"
+             class="button is-primary is-medium"
+             target="_blank">
+            <span class="icon">
+              <i class="fas fa-search"></i>
+            </span>
+            <span>Launch Search App</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+        <h2 class="custom-heading">Example Searches</h2>
+        <div class="content has-text-centered" style="margin-top: 1em; margin-bottom: 1em;">
+          <img src="figures/ExampleSearches.png" alt="Example semantic searches" width="100%"/>
+          <p style="margin-top: 0.5em;"><b>AION-Search enables semantic retrieval of galaxies matching free-form natural language queries.</b> Top three retrieved images from HSC survey for each query demonstrate the system's ability to identify specific astronomical phenomena that would traditionally require volunteer labeling to catalog and train a supervised classifier.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="introduction">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="narrow-text-block">
+          <!-- <h2 class="title is-3">Introduction</h2> -->
+          <div class="content has-text-justified">
+            <p>
+              Traditional galaxy classification relies on volunteer labeling campaigns (e.g., Galaxy Zoo) that require months of effort and produce fixed-choice labels, limiting open-vocabulary search. With upcoming surveys imaging billions of galaxies (Euclid: 1.5B by 2031, LSST: 20B by 2035), manual annotation is infeasible. We use VLMs to automatically caption galaxy images, then train a CLIP-based model to enable semantic search without human supervision.
+            </p>
+          </div>
+        </div>
+        <div class="content has-text-centered" style="margin-top: 1em; margin-bottom: 1em;">
+          <img src="figures/AIONSearch_Figure1 (7).png" alt="VLM evaluation and accuracy-cost trade-off" width="100%"/>
+          <p><b>Evaluating VLM accuracy versus cost.</b> Left: Automated VLM captions are judged against Galaxy Zoo labels. Right: Model accuracy versus API cost for 100k images.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section" id="novelty">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="narrow-text-block">
+          <h2 class="custom-heading">Key Contributions</h2>
+          <div class="content has-text-justified">
+            <ul>
+              <li>First semantic search model for astronomy trained entirely on VLM-generated captions (zero human annotation)</li>
+              <li>Outperforms similarity search on rare phenomena despite training on randomly selected images</li>
+              <li>VLM re-ranking with test-time compute scaling nearly doubles gravitational lens discovery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <hr/> <!-- Visual separator -->
+  </div>
+</section>
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1">
+      <span style="vertical-align: middle">Gravity-Bench-v1 Environment & Tasks</span>
+    </h1>
+  </div>
+</section> -->
+
+<section class="section" id="methodology">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="narrow-text-block">
+            <h2 class="custom-heading">Methodology</h2>
+            <div class="content has-text-justified">
+              <p>
+                We benchmark 13 VLMs on Galaxy Zoo and select GPT-4.1-mini (50% accuracy vs. 52% human volunteer, best cost-performance). We generate captions for 300k galaxies from Legacy Survey and HSC, then train a CLIP model by freezing AION's image encoder and text-embedding-3-large while learning projection heads (1024-dim space, InfoNCE loss). We evaluate zero-shot retrieval on spirals (26% of data), mergers (2%), and lenses (0.1%) using nDCG@10. GPT-4.1 re-ranks top-1000 results with best-of-N sampling.
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="narrow-text-block">
+          <h2 class="custom-heading">Results</h2>
+          <div class="content has-text-justified">
+            <p>
+              AION-Search achieves nDCG@10 of 0.941 (spirals), 0.554 (mergers), and 0.180 (lenses) vs. best baselines of 0.643, 0.384, and 0.015 respectively. For lenses, similarity search retrieves <1 on average in top-10, while AION-Search retrieves 2. GPT-4.1 best-of-5 re-ranking nearly doubles lenses found in top-100 (7→13), with performance scaling with model size and test-time compute.
+            </p>
+          </div>
+        </div>
+
+        <!-- Results Figure -->
+        <div style="margin-top: 1.5em; margin-bottom: 1.5em;">
+          <div style="margin-top: 0.5em;">
+            <figure class="image" style="max-width: 400px; margin: 0 auto;">
+              <img src="figures/top_lenses_reranked_wcaptions (1).png" alt="VLM re-ranking improves lens discovery" style="width:100%; max-width: 400px;"/>
+              <img src="figures/lenses_at_100 (2).png" alt="Test-time compute scaling" style="width:100%; max-width: 400px; margin-top: 1em;"/>
+            </figure>
+            <p class="content is-size-6 narrow-text-block" style="margin-top: 0.75em;">
+              <b>VLM re-ranking boosts rare object retrieval, with performance improving as model size and test-time compute increase.</b>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="conclusion">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="narrow-text-block">
+          <h2 class="custom-heading">Conclusion</h2>
+          <div class="content has-text-justified">
+            <p>
+              We demonstrate that VLM-generated captions (~$150 for 275k images) enable semantic search over 140 million galaxies without human annotation. Despite VLM hallucinations and 50% Galaxy Zoo accuracy (vs. 52% human), imperfect captions provide effective training signal. This approach offers a generalizable framework for making large scientific image archives semantically searchable across multiple domains.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="narrow-text-block">
+          <h2 class="title is-3 has-text-centered">BibTeX</h2>
+          <div style="position: relative;">
+            <pre id="bibtex-content"><code>@inproceedings{koblischke2025why,
+      title={Why wait for human annotations when you have AI? Semantic searching scientific images with synthetic labels},
+      author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
+      booktitle={NeurIPS 2025 AI for Science Workshop},
+      year={2025},
+      url={https://openreview.net/forum?id=j8Qxvb37HQ}
+}</code></pre>
+            <button id="copy-bibtex-btn" class="button is-small is-light" style="position: absolute; top: 10px; right: 10px;" onclick="copyBibTeX()">
+              <span class="icon is-small">
+                <i class="fas fa-copy"></i>
+              </span>
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section" id="org-banners" style="display:flex; justify-content: center; align-items: center; padding-top: 1em; padding-bottom: 0.5em;">
+    <!-- University logos removed -->
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Website adapted from the <a href="https://nerfies.github.io/" target="_blank" rel="noopener noreferrer">Nerfies</a> and <a href="https://mathvista.github.io/" target="_blank" rel="noopener noreferrer">MathVista</a> project pages, licensed under a <a rel="license"
+                                            href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+      <p>Please contact <a href="https://nolank.ca/">Nolan Koblischke</a> with any questions or feedback.</p>
+    </div>
+</footer>
+
+<script>
+  function copyBibTeX() {
+    const bibtexText = `@inproceedings{koblischke2025why,
+    title={Why wait for human annotations when you have AI? Semantic searching scientific images with synthetic labels},
+    author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
+    booktitle={NeurIPS 2025 AI for Science Workshop},
+    year={2025},
+    url={https://openreview.net/forum?id=j8Qxvb37HQ}
+  }`;
+    
+    navigator.clipboard.writeText(bibtexText).then(function() {
+      // Change button text temporarily to show success
+      const btn = document.getElementById('copy-bibtex-btn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<span class="icon is-small"><i class="fas fa-check"></i></span><span>Copied!</span>';
+      btn.classList.remove('is-light');
+      btn.classList.add('is-success');
+      
+      setTimeout(function() {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('is-success');
+        btn.classList.add('is-light');
+      }, 2000);
+    }, function(err) {
+      console.error('Could not copy text: ', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = bibtexText;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      const btn = document.getElementById('copy-bibtex-btn');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<span class="icon is-small"><i class="fas fa-check"></i></span><span>Copied!</span>';
+      btn.classList.remove('is-light');
+      btn.classList.add('is-success');
+      
+      setTimeout(function() {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('is-success');
+        btn.classList.add('is-light');
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
+
+
