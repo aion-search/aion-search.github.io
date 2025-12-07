@@ -120,7 +120,6 @@
           <h2 class="subtitle is-3 publication-subtitle">
             Semantic Searching Scientific Images with Synthetic Labels
           </h2>
-          <h2 class="subtitle is-3 publication-subtitle">(placeholder website)</h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               Nolan Koblischke<sup>1,2</sup>,</span>
@@ -137,7 +136,7 @@
             </span>
           </div>
 
-          <div class="is-size-5 publication-authors">
+          <div class="is-size-7 publication-authors">
             <span class="author-block"><sup>1</sup>University of Toronto,</span>
             <span class="author-block"><sup>2</sup>New York University,</span>
             <span class="author-block"><sup>3</sup>University of California, Berkeley,</span>
@@ -169,7 +168,7 @@
             <div class="publication-links">
 
               <span class="link-block">
-                <a href="https://openreview.net/forum?id=j8Qxvb37HQ"
+                <a href="https://drive.google.com/file/d/1iIRy3NTsQRWjvpFbCLN6bVV0C6lzBRbF/view?usp=sharing"
                    class="external-link button is-normal is-rounded is-dark"
                    target="_blank">
                   <span class="icon">
@@ -199,20 +198,13 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://huggingface.co/spaces/astronolan/AION-Search"
+                <a href="https://astronolan-aion-search.hf.space/"
                    class="external-link button is-normal is-rounded is-dark"
                    target="_blank">
                   <span class="icon">
                       <i class="fas fa-search"></i>
                   </span>
                   <span>App</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://ai4sciencecommunity.github.io/neurips25.html"
-                   class="external-link button is-normal is-rounded is-dark"
-                   target="_blank">
-                  <span>AI4Science Workshop</span>
                 </a>
               </span>
               <!-- Twitter Link. -->
@@ -259,8 +251,7 @@
       <div class="column is-four-fifths">
         <div class="box" style="background-color: #f0f7ff; border: 2px solid #4a90e2; padding: 1.5rem;">
           <h3 class="title is-4" style="margin-bottom: 0.75rem;">Try AION-Search</h3>
-          <p style="margin-bottom: 1rem;">Search over 19 million galaxies using natural language queries.</p>
-          <a href="https://huggingface.co/spaces/astronolan/AION-Search"
+          <a href="https://astronolan-aion-search.hf.space/"
              class="button is-primary is-medium"
              target="_blank">
             <span class="icon">
@@ -296,7 +287,7 @@
           <!-- <h2 class="title is-3">Introduction</h2> -->
           <div class="content has-text-justified">
             <p>
-              Traditional galaxy classification relies on volunteer labeling campaigns (e.g., Galaxy Zoo) that require months of effort and produce fixed-choice labels, limiting open-vocabulary search. With upcoming surveys imaging billions of galaxies (Euclid: 1.5B by 2031, LSST: 20B by 2035), manual annotation is infeasible. We use VLMs to automatically caption galaxy images, then train a CLIP-based model to enable semantic search without human supervision.
+              Traditional galaxy classification relies on volunteer labeling campaigns (e.g., Galaxy Zoo) that require months of effort and produce fixed-choice labels, limiting open-vocabulary search. We use VLMs to automatically caption galaxy images, then train a CLIP-based model to enable semantic search without human supervision.
             </p>
           </div>
         </div>
@@ -350,7 +341,7 @@
             <h2 class="custom-heading">Methodology</h2>
             <div class="content has-text-justified">
               <p>
-                We benchmark 13 VLMs on Galaxy Zoo and select GPT-4.1-mini (50% accuracy vs. 52% human volunteer, best cost-performance). We generate captions for 300k galaxies from Legacy Survey and HSC, then train a CLIP model by freezing AION's image encoder and text-embedding-3-large while learning projection heads (1024-dim space, InfoNCE loss). We evaluate zero-shot retrieval on spirals (26% of data), mergers (2%), and lenses (0.1%) using nDCG@10. GPT-4.1 re-ranks top-1000 results with best-of-N sampling.
+                We benchmark 13 VLMs on Galaxy Zoo and select GPT-4.1-mini for best performance-cost trade-off. We generate captions for 275k galaxies from Legacy Survey and HSC, then train a CLIP model by freezing AION's image encoder and text-embedding-3-large and learning projection heads. We evaluate zero-shot retrieval on spirals (26% of data), mergers (2%), and lenses (0.1%) using nDCG@10.
               </p>
             </div>
           </div>
@@ -368,7 +359,7 @@
           <h2 class="custom-heading">Results</h2>
           <div class="content has-text-justified">
             <p>
-              AION-Search achieves nDCG@10 of 0.941 (spirals), 0.554 (mergers), and 0.180 (lenses) vs. best baselines of 0.643, 0.384, and 0.015 respectively. For lenses, similarity search retrieves <1 on average in top-10, while AION-Search retrieves 2. GPT-4.1 best-of-5 re-ranking nearly doubles lenses found in top-100 (7→13), with performance scaling with model size and test-time compute.
+              AION-Search achieves nDCG@10 of 0.941 (spirals), 0.554 (mergers), and 0.180 (lenses) vs. best similarity search baselines of 0.643, 0.384, and 0.015 respectively. We also try re-ranking the top 1,000 search results with GPT-4.1, which nearly doubles lenses found in top-100 (7→13), with performance scaling with model size and more sampling per image.
             </p>
           </div>
         </div>
@@ -399,7 +390,7 @@
           <h2 class="custom-heading">Conclusion</h2>
           <div class="content has-text-justified">
             <p>
-              We demonstrate that VLM-generated captions (~$150 for 275k images) enable semantic search over 140 million galaxies without human annotation. Despite VLM hallucinations and 50% Galaxy Zoo accuracy (vs. 52% human), imperfect captions provide effective training signal. This approach offers a generalizable framework for making large scientific image archives semantically searchable across multiple domains.
+              We demonstrate that VLM-generated captions (~$150 for 275k images) enable semantic search over galaxies without human annotation. We found that imperfect captions still provides effective training signal. This approach offers a generalizable framework for making large scientific image archives semantically searchable across multiple domains.
             </p>
           </div>
         </div>
