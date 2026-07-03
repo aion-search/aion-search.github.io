@@ -135,6 +135,10 @@
             </span>
           </div>
 
+          <div class="is-size-5 publication-authors" style="margin-top: 0.35em; margin-bottom: 0.5em;">
+            <span class="author-block">The Astrophysical Journal</span>
+          </div>
+
           <div class="is-size-7 publication-authors">
             <span class="author-block"><sup>1</sup>University of Toronto,</span>
             <span class="author-block"><sup>2</sup>New York University,</span>
@@ -167,13 +171,23 @@
             <div class="publication-links">
 
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2512.11982"
+                <a href="https://iopscience.iop.org/article/10.3847/1538-4357/ae7b22"
                    class="external-link button is-normal is-rounded is-dark"
                    target="_blank">
                   <span class="icon">
                       <i class="fas fa-file-alt"></i>
                   </span>
                   <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2512.11982"
+                   class="external-link button is-normal is-rounded is-dark"
+                   target="_blank">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
                 </a>
               </span>
               <span class="link-block">
@@ -398,14 +412,18 @@
         <div class="narrow-text-block">
           <h2 class="title is-3 has-text-centered">BibTeX</h2>
           <div style="position: relative;">
-            <pre id="bibtex-content"><code>@misc{koblischke2025semantic,
-              title={Semantic search for 100M+ galaxy images using AI-generated captions}, 
-              author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
-              year={2025},
-              eprint={2512.11982},
-              archivePrefix={arXiv},
-              primaryClass={astro-ph.IM},
-              url={https://arxiv.org/abs/2512.11982}, 
+            <pre id="bibtex-content"><code>@article{Koblischke_2026,
+              doi={10.3847/1538-4357/ae7b22},
+              url={https://doi.org/10.3847/1538-4357/ae7b22},
+              year={2026},
+              month={jul},
+              publisher={The American Astronomical Society},
+              volume={1005},
+              number={2},
+              pages={170},
+              author={Koblischke, Nolan and Parker, Liam and Lanusse, Francois and Bovy, Jo and Espejo, Irina and Ho, Shirley},
+              title={Semantic Search for 100M+ Galaxy Images Using AI-generated Captions},
+              journal={The Astrophysical Journal}
         }</code></pre>
             <button id="copy-bibtex-btn" class="button is-small is-light" style="position: absolute; top: 10px; right: 10px;" onclick="copyBibTeX()">
               <span class="icon is-small">
@@ -439,14 +457,18 @@
 
 <script>
   function copyBibTeX() {
-    const bibtexText = `@misc{koblischke2025semantic,
-              title={Semantic search for 100M+ galaxy images using AI-generated captions}, 
-              author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
-              year={2025},
-              eprint={2512.11982},
-              archivePrefix={arXiv},
-              primaryClass={astro-ph.IM},
-              url={https://arxiv.org/abs/2512.11982}, 
+    const bibtexText = `@article{Koblischke_2026,
+              doi={10.3847/1538-4357/ae7b22},
+              url={https://doi.org/10.3847/1538-4357/ae7b22},
+              year={2026},
+              month={jul},
+              publisher={The American Astronomical Society},
+              volume={1005},
+              number={2},
+              pages={170},
+              author={Koblischke, Nolan and Parker, Liam and Lanusse, Francois and Bovy, Jo and Espejo, Irina and Ho, Shirley},
+              title={Semantic Search for 100M+ Galaxy Images Using AI-generated Captions},
+              journal={The Astrophysical Journal}
         }`;
     
     navigator.clipboard.writeText(bibtexText).then(function() {
